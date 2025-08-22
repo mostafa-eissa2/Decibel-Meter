@@ -1,0 +1,364 @@
+/*
+=====================================================
+--- NEW HIGH-CONTRAST LIGHT THEME (FINAL LAYOUT FIX) ---
+=====================================================
+*/
+
+:root {
+    --bg-light: #f8f9fa;
+    --card-bg: #ffffff;
+    --font-dark: #212529;
+    --font-light: #6c757d;
+    --primary-accent: #0056b3;
+    --border-color: #dee2e6;
+    --safe-green: #28a745;
+    --warning-yellow: #ffc107;
+    --danger-red: #dc3545;
+    --shadow-color: rgba(0, 0, 0, 0.1);
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap');
+
+body {
+    font-family: 'Tajawal', sans-serif;
+    background-color: var(--bg-light);
+    color: var(--font-dark);
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    margin: 0;
+    padding: 30px 20px;
+    box-sizing: border-box;
+}
+
+.container {
+    background-color: var(--card-bg);
+    padding: 30px 40px;
+    border-radius: 16px;
+    box-shadow: 0 8px 25px var(--shadow-color);
+    width: 100%;
+    max-width: 650px;
+    text-align: center;
+    border: 1px solid var(--border-color);
+    animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+h1,
+h2 {
+    color: var(--font-dark);
+    font-weight: 700;
+}
+
+h1 {
+    font-size: 2.2em;
+    margin-bottom: 20px;
+}
+
+h2 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+}
+
+/* === START: THE GUARANTEED LAYOUT FIX === */
+
+/* Step 1: Make the container tall enough to hold the gauge AND the numbers. */
+.gauge-container {
+    position: relative;
+    width: 280px;
+    height: 220px;
+    /* Increased height to contain everything */
+    margin: 20px auto 0;
+    /* Margin on top, but not bottom */
+}
+
+/* Step 2: Position the number display INSIDE the new, taller container. */
+.decibel-display {
+    position: absolute;
+    top: 105px;
+    /* Position from the top, below the semi-circle */
+    left: 0;
+    right: 0;
+    margin: auto;
+    font-size: 3em;
+    font-weight: 900;
+    color: var(--font-dark);
+}
+
+/* Step 3: Give the buttons a clean margin that pushes them down. */
+.controls {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin: 10px auto 30px auto;
+    /* Clean margin, will now be below the container */
+    width: 100%;
+}
+
+/* === END: THE GUARANTEED LAYOUT FIX === */
+
+.gauge {
+    width: 280px;
+    height: 280px;
+    border-radius: 50%;
+    position: absolute;
+    box-sizing: border-box;
+    background-image: conic-gradient(from -135deg,
+            var(--safe-green) 0deg 90deg,
+            var(--warning-yellow) 90deg 180deg,
+            var(--danger-red) 180deg 270deg);
+    -webkit-mask-image: radial-gradient(transparent 100px, black 101px);
+    mask-image: radial-gradient(transparent 100px, black 101px);
+}
+
+.gauge-needle {
+    position: absolute;
+    width: 4px;
+    height: 120px;
+    background-color: var(--font-dark);
+    bottom: 80px;
+    /* Adjusted due to new container height */
+    left: 50%;
+    transform-origin: bottom center;
+    transform: translateX(-50%) rotate(-45deg);
+    transition: transform 0.3s ease-out;
+    border-radius: 4px;
+}
+
+.gauge-center {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background-color: var(--font-dark);
+    border-radius: 50%;
+    bottom: 70px;
+    /* Adjusted due to new container height */
+    left: 50%;
+    transform: translateX(-50%);
+    border: 4px solid var(--card-bg);
+}
+
+#db-value {
+    letter-spacing: -1px;
+}
+
+button {
+    background-color: #fff;
+    color: var(--primary-accent);
+    border: 2px solid var(--border-color);
+    padding: 12px 30px;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 1em;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    margin-top: 60px;
+}
+
+button:hover:not(:disabled) {
+    border-color: var(--primary-accent);
+    background-color: var(--primary-accent);
+    color: #fff;
+    transform: translateY(-2px);
+}
+
+button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    background-color: var(--bg-light);
+}
+
+.go-btn {
+    background-color: var(--primary-accent);
+    border-color: var(--primary-accent);
+    color: #fff;
+}
+
+.go-btn.running {
+    background-color: var(--danger-red);
+    border-color: var(--danger-red);
+}
+
+#record-btn.recording {
+    background-color: var(--warning-yellow);
+    border-color: var(--warning-yellow);
+    color: var(--font-dark);
+}
+
+.training-warning {
+    background-color: #fff3cd;
+    border: 1px solid #ffeeba;
+    color: #856404;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 30px;
+    text-align: center;
+    font-size: 0.9em;
+}
+
+.training-warning p {
+    margin: 0;
+}
+
+.info-section,
+.report-section {
+    margin-top: 30px;
+    border-top: 1px solid var(--border-color);
+    padding-top: 30px;
+}
+
+.info-section p {
+    font-size: 1em;
+    color: var(--font-light);
+    margin-top: -10px;
+    margin-bottom: 25px;
+}
+
+.styled-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.styled-table th,
+.styled-table td {
+    border: 1px solid var(--border-color);
+    padding: 12px 15px;
+    text-align: center;
+}
+
+.styled-table thead {
+    background-color: var(--bg-light);
+    font-weight: 700;
+}
+
+.table-wrapper {
+    max-height: 220px;
+    overflow-y: auto;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+}
+
+.form-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 700;
+}
+
+input[type="text"],
+input[type="file"] {
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    background-color: #fff;
+    color: var(--font-dark);
+    box-sizing: border-box;
+    font-size: 1em;
+}
+
+input[type="text"]:focus {
+    outline: none;
+    border-color: var(--primary-accent);
+    box-shadow: 0 0 5px rgba(0, 86, 179, 0.2);
+}
+
+.footer {
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border-color);
+    font-size: 0.9em;
+    color: var(--font-light);
+}
+
+.your-name {
+    font-weight: 700;
+    color: var(--primary-accent);
+}
+
+.social-icons {
+    margin-top: 15px;
+}
+
+.social-icons a {
+    color: var(--font-light);
+    font-size: 1.8em;
+    margin: 0 15px;
+    transition: color 0.2s ease;
+}
+
+.social-icons a:hover {
+    color: var(--primary-accent);
+}
+
+/* --- Footer Styles (Corrected for Mobile) --- */
+footer {
+    text-align: center;
+    padding: 25px 15px;
+    /* Added more vertical padding */
+    margin-top: 40px;
+    /* Increased space from content above */
+    border-top: 1px solid var(--border-color);
+    /* Added a subtle line for separation */
+}
+
+/* This is the main fix for the container */
+.social-icons {
+    display: flex;
+    /* Activates Flexbox */
+    flex-wrap: wrap;
+    /* Allows icons to wrap to the next line */
+    justify-content: center;
+    /* Keeps icons centered horizontally */
+    gap: 5px;
+    /* Modern way to add space between icons */
+    margin-bottom: 15px;
+    /* Adds space between icons and credit text */
+}
+
+.social-icons a {
+    display: inline-block;
+    /* margin is now handled by 'gap', so we can remove it from here */
+    transition: transform 0.3s ease;
+}
+
+.social-icons a:hover {
+    transform: translateY(-4px);
+}
+
+.social-icons svg {
+    width: 32px;
+    height: 32px;
+    fill: #555;
+    transition: fill 0.3s ease;
+}
+
+.social-icons a:hover svg {
+    fill: #0056b3;
+}
+
+.footer-credit {
+    margin-top: 10px;
+    font-size: 0.9rem;
+    /* Slightly smaller for a cleaner look */
+    color: #777;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    direction: ltr;
+}
